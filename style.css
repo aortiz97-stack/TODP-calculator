@@ -1,0 +1,12 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#calculator-body{
+    background-color: #36454F;
+    border-radius: 15px;
+    height: 75vh;
+    width: 25vw;
+}
