@@ -5,8 +5,25 @@ body{
     height: 100vh;
 }
 #calculator-body{
-    background-color: #36454F;
+    background-color: #232323;
     border-radius: 15px;
     height: 75vh;
     width: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#display{
+    background-color: #D3D3D3;
+    text-align: center;
+    padding-top: 20px;
+    border-radius: 15px;
+    width: 50%;
+    height: 10%;
+}
+
+#number-keypad{
+    
 }
