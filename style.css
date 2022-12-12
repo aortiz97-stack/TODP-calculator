@@ -19,13 +19,13 @@ body{
     background-color: #D3D3D3;
     text-align: center;
     padding-top: 20px;
+  
     border-radius: 15px;
     width: 70%;
     height: 10%;
 }
 
 #number-keypad{
-    background-color: lightcyan;
     width: 70%; 
     height: 50%;
     margin-bottom: 30px;
@@ -37,7 +37,6 @@ body{
 }
 
 .row{
-    background-color: red;
     display: flex;
     width: 100%;
     flex: 1 1 0;
