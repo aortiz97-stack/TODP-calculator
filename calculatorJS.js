@@ -82,8 +82,6 @@ function getNumbersOnlyLength(stringNum){
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
-        console.log(`firstNum: ${firstNumber}`);
-        console.log(`secondNum: ${secondNumber}`);
         if (button.id ==="C"){
             updateDisplay("0");
             firstNumber = "";
@@ -124,6 +122,7 @@ buttons.forEach((button)=>{
             secondNumber = "";
         }
         
+
         if (button.id==="=" && operationNumbers.length !== 0){
             operationNumbers.push(secondNumber);
             let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
@@ -140,5 +139,23 @@ buttons.forEach((button)=>{
             operation = [];
             operationNumbers = [];
         }
+        else if (button.id==="+/-"){
+            if (firstNumber === "" && secondNumber !== ""){
+                secondNumber = (parseFloat(secondNumber) * -1).toString();
+                updateDisplay(secondNumber);
+            }
+            else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
+                firstNumber = (parseFloat(firstNumber) * -1).toString();
+                updateDisplay(firstNumber);
+            }
+            else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
+                firstNumber *= -1;
+                updateDisplay(firstNumber);
+            }
+        }
+        console.log(`firstNum: ${firstNumber}`);
+        console.log(`secondNum: ${secondNumber}`);
+        console.log(`operationNumbers: ${operationNumbers}`);
+        
     });
 })
