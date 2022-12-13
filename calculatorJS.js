@@ -1,6 +1,6 @@
-let firstNumber;
+let firstNumber = "";
 let operation;
-let secondNumber;
+let secondNumber = "";
 
 function add(a, b){
     return a + b;
@@ -30,18 +30,22 @@ function updateDisplay(newDisplay){
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
-        if (firstNumber === undefined && typeof parseInt(button.id) === "number"){
-            firstNumber = parseInt(button.id);
+        if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation===undefined){
+            firstNumber += (button.id);
+            updateDisplay(firstNumber);
+            console.log(`type of ${button.id}: ${typeof parseInt(button.id)}`);
+            console.log(`parsed: ${parseInt(button.id)}`)
             console.log(`firstNumber: ${firstNumber}`);
         }
         else if (operation === undefined && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
             operation = button.id;
+            updateDisplay(operation);
             console.log(`operation: ${operation}`);
         }
-        else if (firstNumber !== undefined && typeof parseInt(button.id) === "number"){
-            secondNumber = parseInt(button.id);
+        else if (secondNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation !== undefined){
+            secondNumber += (button.id);
+            updateDisplay(secondNumber);
             console.log(`secondNumber: ${secondNumber}`);
         }
-        updateDisplay(button.textContent);
     });
 })
