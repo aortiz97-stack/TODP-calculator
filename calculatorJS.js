@@ -19,7 +19,12 @@ function divide(a, b){
 }
 
 function operate(func, a, b){
-    return func(a,b);
+    let operate = (func ==="+")? add(a,b): 
+    (func ==="-")? subtract(a,b):
+    (func ==="x")? multiply(a,b):
+    (func==="÷")? divide(a,b): undefined;
+    
+    return operate;
 }
 
 function updateDisplay(newDisplay){
@@ -57,6 +62,19 @@ buttons.forEach((button)=>{
             secondNumber += (button.id);
             updateDisplay(secondNumber);
             console.log(`secondNumber: ${secondNumber}`);
+        }
+        else if (button.id==="="){
+            firstNumber = parseFloat(firstNumber);
+            secondNumber = parseFloat(secondNumber);
+            console.log(`numbified firstNumber: ${firstNumber}`);
+            console.log(`numbified secondNumber: ${secondNumber}`);
+
+            let answer = operate(operation, firstNumber, secondNumber);
+            updateDisplay(answer);
+
+            firstNumber = "";
+            secondNumber = "";
+            operation = undefined;
         }
     });
 })
