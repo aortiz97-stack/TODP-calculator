@@ -108,6 +108,15 @@ buttons.forEach((button)=>{
                     secondNumber = "";
                 }
             }
+
+            console.log(`firstNumber: ${firstNumber}`);
+            console.log(`parsed button id type: ${typeof parseInt(button.id)==="number"}`);
+            console.log(`is not NaN: ${!isNaN(parseInt(button.id))}`);
+            if (typeof firstNumber === "number" && typeof parseInt(button.id) ==="number" && !isNaN(parseInt(button.id))){
+                console.log("ENTERRED");
+                firstNumber = button.id
+                updateDisplay(firstNumber);
+            }
         }
     
         function processOperatorInput(){
