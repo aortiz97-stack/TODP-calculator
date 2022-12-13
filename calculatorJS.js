@@ -1,6 +1,7 @@
 let firstNumber = "";
-let operation;
+let operation = [];
 let secondNumber = "";
+let operationNumbers = [];
 
 function add(a, b){
     return a + b;
@@ -43,38 +44,57 @@ buttons.forEach((button)=>{
         if (button.id ==="C"){
             updateDisplay("0");
             firstNumber = "";
-            operation= undefined;
+            operation= [];
             secondNumber = "";
+            operationNumbers = [];
         }
-        else if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation===undefined){
+        else if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
             firstNumber += (button.id);
+            secondNumber = "";
             updateDisplay(firstNumber);
-            console.log(`type of ${button.id}: ${typeof parseInt(button.id)}`);
-            console.log(`parsed: ${parseInt(button.id)}`)
-            console.log(`firstNumber: ${firstNumber}`);
         }
-        else if (operation === undefined && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
-            operation = button.id;
-            updateDisplay(operation);
-            console.log(`operation: ${operation}`);
+        else if ((firstNumber !== "" || secondNumber != "") && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+            operation.push(button.id);
         }
-        else if (secondNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation !== undefined){
+        
+        else if (secondNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length !== 0){
+            firstNumber = "";
             secondNumber += (button.id);
             updateDisplay(secondNumber);
-            console.log(`secondNumber: ${secondNumber}`);
+            if (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷"){
+                operationNumbers.push(parseFloat(secondNumber));
+                secondNumber = "";
+            }
         }
+
+        if (firstNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+            operationNumbers.push(parseFloat(firstNumber));
+            firstNumber = "";
+        }
+
+        if (secondNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+            operationNumbers.push(parseFloat(secondNumber));
+            secondNumber = "";
+        }
+        console.log(`button id: ${button.id}`);
+        console.log(`firstNumber: ${firstNumber}`);
+        console.log(`secondNumber: ${secondNumber}`);
+        console.log(`operationNumbers: ${operationNumbers}`);
+        console.log(`operations: ${operation}`);
+        console.log("____________")
+        /*
         else if (button.id==="="){
             firstNumber = parseFloat(firstNumber);
             secondNumber = parseFloat(secondNumber);
-            console.log(`numbified firstNumber: ${firstNumber}`);
-            console.log(`numbified secondNumber: ${secondNumber}`);
+            let func = 
 
             let answer = operate(operation, firstNumber, secondNumber);
             updateDisplay(answer);
 
             firstNumber = "";
             secondNumber = "";
-            operation = undefined;
-        }
+            operation = [];
+            additionalNumbers = undefined;
+        }*/
     });
 })
