@@ -20,7 +20,7 @@ function divide(a, b){
 }
 
 function operate(func, a, b){
-    let operate = (func ==="+")? add(a,b): 
+    const operate = (func ==="+")? add(a,b): 
     (func ==="-")? subtract(a,b):
     (func ==="x")? multiply(a,b):
     (func==="÷")? divide(a,b): undefined;
@@ -29,8 +29,33 @@ function operate(func, a, b){
 }
 
 function updateDisplay(newDisplay){
-    let display = document.getElementById("display");
+    const display = document.getElementById("display");
     display.textContent = newDisplay;
+}
+
+/*function roundDecimal(a, b, answer){
+    const answerArr = answer.toString().split(".")
+
+    if (answerArr.length===1) return answer;
+    else{
+        const maxDigits = 8;
+    }
+
+}*/
+
+function getNumbersOnlyLength(stringNum){
+    stringNum = stringNum.toString();
+    
+    stringNum = stringNum.split("");
+    const total = stringNum.reduce((accumulator, currentElement) => {
+            if (typeof parseInt(currentElement) ==="number" && !isNaN(parseInt(currentElement))) {
+                return accumulator + 1;
+            }
+            else{
+                return accumulator;
+            }
+        }, 0);
+    return total;   
 }
 
 //Change #zero to #0
@@ -41,26 +66,32 @@ zeroButton.style.cssText = "flex: 3 0 52%; text-align:left; padding-left: 25px; 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
+        console.log(`firstNum: ${firstNumber}`);
+        console.log(`secondNum: ${secondNumber}`);
         if (button.id ==="C"){
             updateDisplay("0");
             firstNumber = "";
-            operation= [];
+            operation = [];
             secondNumber = "";
             operationNumbers = [];
         }
-        else if (firstNumber.length <= 9 && typeof firstNumber !== 'number' && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
+        else if (getNumbersOnlyLength(firstNumber) <= 9 && typeof firstNumber !== 'number' && 
+        ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
             firstNumber += (button.id);
             secondNumber = "";
             updateDisplay(firstNumber);
         }
-        else if ((firstNumber !== "" || secondNumber != "") && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+        else if ((firstNumber !== "" || secondNumber != "") && 
+        (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
             operation.push(button.id);
         }
         
-        else if (secondNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length !== 0){
+        else if (getNumbersOnlyLength(secondNumber) <= 9 && 
+        ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length !== 0){
             firstNumber = "";
             secondNumber += (button.id);
             updateDisplay(secondNumber);
+
             if (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷"){
                 operationNumbers.push(parseFloat(secondNumber));
                 secondNumber = "";
@@ -76,12 +107,6 @@ buttons.forEach((button)=>{
             operationNumbers.push(parseFloat(secondNumber));
             secondNumber = "";
         }
-        console.log(`button id: ${button.id}`);
-        console.log(`firstNumber: ${firstNumber}`);
-        console.log(`secondNumber: ${secondNumber}`);
-        console.log(`operationNumbers: ${operationNumbers}`);
-        console.log(`operations: ${operation}`);
-        console.log("____________")
         
         if (button.id==="=" && operationNumbers.length !== 0){
             
