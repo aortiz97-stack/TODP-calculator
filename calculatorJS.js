@@ -48,7 +48,7 @@ buttons.forEach((button)=>{
             secondNumber = "";
             operationNumbers = [];
         }
-        else if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
+        else if (firstNumber.length <= 9 && typeof firstNumber !== 'number' && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
             firstNumber += (button.id);
             secondNumber = "";
             updateDisplay(firstNumber);
@@ -99,10 +99,10 @@ buttons.forEach((button)=>{
 
             updateDisplay(answer);
 
-            firstNumber = "";
+            firstNumber = answer;
             secondNumber = "";
             operation = [];
-            additionalNumbers = undefined;
+            operationNumbers = [];
         }
     });
 })
