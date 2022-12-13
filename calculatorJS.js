@@ -176,9 +176,16 @@ buttons.forEach((button)=>{
             resetCalculator();
         }
 
+        function buttonColorChange(color){
+            button.style.backgroundColor = color;
+        }
 
+        let originalColor = button.style.backgroundColor;
+        
+        buttonColorChange("white");
         processOperandInput();
         processOperatorInput();
         processNonOperatorInput();
+        setTimeout(()=>{buttonColorChange(originalColor)}, 100);
     });
 })
