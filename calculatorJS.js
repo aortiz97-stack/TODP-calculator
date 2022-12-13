@@ -153,6 +153,20 @@ buttons.forEach((button)=>{
                 updateDisplay(firstNumber);
             }
         }
+        else if (button.id==="%"){
+            if (firstNumber === "" && secondNumber !== ""){
+                secondNumber = ((parseFloat(secondNumber))/100).toString();
+                updateDisplay(secondNumber);
+            }
+            else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
+                firstNumber = ((parseFloat(firstNumber))/100).toString();
+                updateDisplay(firstNumber);
+            }
+            else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
+                firstNumber /= 100;
+                updateDisplay(firstNumber);
+            }
+        }
         console.log(`firstNum: ${firstNumber}`);
         console.log(`secondNum: ${secondNumber}`);
         console.log(`operationNumbers: ${operationNumbers}`);
