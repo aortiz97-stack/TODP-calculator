@@ -27,6 +27,11 @@ function updateDisplay(newDisplay){
     display.textContent = newDisplay;
 }
 
+//Change #zero to #0
+const zeroButton = document.getElementById("zero");
+zeroButton.id = "0";
+zeroButton.style.cssText = "flex: 3 0 52%; text-align:left; padding-left: 25px; border-radius: 35px;";
+
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
