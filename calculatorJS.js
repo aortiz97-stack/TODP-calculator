@@ -61,7 +61,6 @@ function roundDecimal(answer){
         }
         return parseFloat(roundedNumStr);
     }
-
 }
 
 function getNumbersOnlyLength(stringNum){
@@ -78,98 +77,110 @@ function getNumbersOnlyLength(stringNum){
     return total;   
 }
 
+function resetCalculator(){
+    operation = [];
+    secondNumber = "";
+    operationNumbers = [];
+}
+
+function processEqualInput(){
+    operationNumbers.push(secondNumber);
+    let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
+
+    for (let i = 2; i < operationNumbers.length; i++){
+        answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
+    } 
+
+    answer = roundDecimal(answer);
+    updateDisplay(answer);
+
+    firstNumber = answer;
+    resetCalculator();
+}
+
+
+
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
-        if (button.id ==="C"){
-            updateDisplay("0");
-            firstNumber = "";
-            operation = [];
-            secondNumber = "";
-            operationNumbers = [];
+        function processOperandInput(){
+            if (getNumbersOnlyLength(firstNumber) <= 9 && typeof firstNumber !== 'number' && 
+            ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
+                firstNumber += (button.id);
+                secondNumber = "";
+                updateDisplay(firstNumber);
+            }
+            else if ((firstNumber !== "" || secondNumber != "") && 
+            (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+                operation.push(button.id);
+            }    
+            else if (getNumbersOnlyLength(secondNumber) <= 9 && 
+            ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length !== 0){
+                firstNumber = "";
+                secondNumber += (button.id);
+                updateDisplay(secondNumber);
+    
+                if (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷"){
+                    operationNumbers.push(parseFloat(secondNumber));
+                    secondNumber = "";
+                }
+            }
         }
-        else if (getNumbersOnlyLength(firstNumber) <= 9 && typeof firstNumber !== 'number' && 
-        ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length===0){
-            firstNumber += (button.id);
-            secondNumber = "";
-            updateDisplay(firstNumber);
-        }
-        else if ((firstNumber !== "" || secondNumber != "") && 
-        (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
-            operation.push(button.id);
-        }
-        
-        else if (getNumbersOnlyLength(secondNumber) <= 9 && 
-        ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation.length !== 0){
-            firstNumber = "";
-            secondNumber += (button.id);
-            updateDisplay(secondNumber);
-
-            if (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷"){
+    
+        function processOperatorInput(){
+            if (firstNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+                operationNumbers.push(parseFloat(firstNumber));
+                firstNumber = "";
+            }
+    
+            if (secondNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
                 operationNumbers.push(parseFloat(secondNumber));
                 secondNumber = "";
             }
         }
 
-        if (firstNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
-            operationNumbers.push(parseFloat(firstNumber));
-            firstNumber = "";
-        }
-
-        if (secondNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
-            operationNumbers.push(parseFloat(secondNumber));
-            secondNumber = "";
-        }
-        
-
-        if (button.id==="=" && operationNumbers.length !== 0){
-            operationNumbers.push(secondNumber);
-            let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
-
-            for (let i = 2; i < operationNumbers.length; i++){
-                answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
-            } 
-
-            answer = roundDecimal(answer);
-            updateDisplay(answer);
-
-            firstNumber = answer;
-            secondNumber = "";
-            operation = [];
-            operationNumbers = [];
-        }
-        else if (button.id==="+/-"){
-            if (firstNumber === "" && secondNumber !== ""){
-                secondNumber = (parseFloat(secondNumber) * -1).toString();
-                updateDisplay(secondNumber);
+        function processNonOperatorInput(){
+            if (button.id==="=" && operationNumbers.length !== 0){
+                processEqualInput();
             }
-            else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
-                firstNumber = (parseFloat(firstNumber) * -1).toString();
-                updateDisplay(firstNumber);
+            else if (button.id==="+/-"){
+                if (firstNumber === "" && secondNumber !== ""){
+                    secondNumber = (parseFloat(secondNumber) * -1).toString();
+                    updateDisplay(secondNumber);
+                }
+                else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
+                    firstNumber = (parseFloat(firstNumber) * -1).toString();
+                    updateDisplay(firstNumber);
+                }
+                else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
+                    firstNumber *= -1;
+                    updateDisplay(firstNumber);
+                }
             }
-            else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
-                firstNumber *= -1;
-                updateDisplay(firstNumber);
+            else if (button.id==="%"){
+                if (firstNumber === "" && secondNumber !== ""){
+                    secondNumber = ((parseFloat(secondNumber))/100).toString();
+                    updateDisplay(secondNumber);
+                }
+                else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
+                    firstNumber = ((parseFloat(firstNumber))/100).toString();
+                    updateDisplay(firstNumber);
+                }
+                else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
+                    firstNumber /= 100;
+                    updateDisplay(firstNumber);
+                }
+            }
+            else if (button.id ==="C"){
+                updateDisplay("0");
+                firstNumber = "";
+                resetCalculator();
             }
         }
-        else if (button.id==="%"){
-            if (firstNumber === "" && secondNumber !== ""){
-                secondNumber = ((parseFloat(secondNumber))/100).toString();
-                updateDisplay(secondNumber);
-            }
-            else if (typeof firstNumber !== "number" && firstNumber !=="" && secondNumber ===""){
-                firstNumber = ((parseFloat(firstNumber))/100).toString();
-                updateDisplay(firstNumber);
-            }
-            else if (typeof firstNumber === "number" && firstNumber !=="" && secondNumber ===""){
-                firstNumber /= 100;
-                updateDisplay(firstNumber);
-            }
-        }
-        console.log(`firstNum: ${firstNumber}`);
-        console.log(`secondNum: ${secondNumber}`);
-        console.log(`operationNumbers: ${operationNumbers}`);
-        
+
+        processOperandInput();
+        processOperatorInput();
+        processNonOperatorInput();
     });
 })
