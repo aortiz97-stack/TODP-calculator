@@ -3,12 +3,18 @@ let operation = [];
 let secondNumber = "";
 let operationNumbers = [];
 
+//Change #zero to #0
+const zeroButton = document.getElementById("zero");
+zeroButton.id = "0";
+zeroButton.style.cssText = "flex: 3 0 52%; text-align:left; padding-left: 25px; border-radius: 35px;";
+
+
 function add(a, b){
-    return a + b;
+    return (a*10 + b*10)/10;
 }
 
 function subtract(a, b){
-    return a - b;
+    return (a*10 - b*10)/10;
 }
 
 function multiply(a,b){
@@ -33,19 +39,33 @@ function updateDisplay(newDisplay){
     display.textContent = newDisplay;
 }
 
-/*function roundDecimal(a, b, answer){
+function roundDecimal(answer){
     const answerArr = answer.toString().split(".")
 
     if (answerArr.length===1) return answer;
     else{
-        const maxDigits = 8;
+        const maxDigits = 9;
+        const decimalDigitsLeft = maxDigits - getNumbersOnlyLength(answerArr[0]);
+        const roundedNumStr = +(parseFloat(answer).toFixed(decimalDigitsLeft));
+
+        let i = roundedNumStr.length - 1;
+        while (i >= 0){
+            if (roundedNumStr[i]==="0"){
+                roundedNumStr.pop(i);
+                i = roundedNumStr.length-1;
+            }
+            else{
+                i--;
+                break;
+            }
+        }
+        return parseFloat(roundedNumStr);
     }
 
-}*/
+}
 
 function getNumbersOnlyLength(stringNum){
     stringNum = stringNum.toString();
-    
     stringNum = stringNum.split("");
     const total = stringNum.reduce((accumulator, currentElement) => {
             if (typeof parseInt(currentElement) ==="number" && !isNaN(parseInt(currentElement))) {
@@ -58,10 +78,6 @@ function getNumbersOnlyLength(stringNum){
     return total;   
 }
 
-//Change #zero to #0
-const zeroButton = document.getElementById("zero");
-zeroButton.id = "0";
-zeroButton.style.cssText = "flex: 3 0 52%; text-align:left; padding-left: 25px; border-radius: 35px;";
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
@@ -109,19 +125,14 @@ buttons.forEach((button)=>{
         }
         
         if (button.id==="=" && operationNumbers.length !== 0){
-            
             operationNumbers.push(secondNumber);
-            console.log(`operationNumbers equals: ${operationNumbers}`)
-
             let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
 
             for (let i = 2; i < operationNumbers.length; i++){
-                console.log(`answer is ${answer}`);
                 answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
             } 
 
-            console.log(`Answer: ${answer}`);
-
+            answer = roundDecimal(answer);
             updateDisplay(answer);
 
             firstNumber = answer;
