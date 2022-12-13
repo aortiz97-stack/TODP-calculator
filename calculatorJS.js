@@ -35,7 +35,8 @@ function operate(func, a, b){
 
 function updateDisplay(newDisplay){
     const display = document.getElementById("display");
-    display.textContent = newDisplay;
+    display.textContent = " ";
+    setTimeout(()=>{display.textContent = newDisplay}, 15);
 }
 
 function roundDecimal(answer){
@@ -84,7 +85,7 @@ function resetCalculator(){
 
 
 const buttons = document.querySelectorAll("button");
-buttons.forEach((button)=>{
+buttons.forEach((button)=> {
     button.addEventListener("click", () =>{
         function processOperandInput(){
             if (getNumbersOnlyLength(firstNumber) <= 9 && typeof firstNumber !== 'number' && 
@@ -109,11 +110,7 @@ buttons.forEach((button)=>{
                 }
             }
 
-            console.log(`firstNumber: ${firstNumber}`);
-            console.log(`parsed button id type: ${typeof parseInt(button.id)==="number"}`);
-            console.log(`is not NaN: ${!isNaN(parseInt(button.id))}`);
             if (typeof firstNumber === "number" && typeof parseInt(button.id) ==="number" && !isNaN(parseInt(button.id))){
-                console.log("ENTERRED");
                 firstNumber = button.id
                 updateDisplay(firstNumber);
             }
