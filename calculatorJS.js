@@ -35,7 +35,13 @@ zeroButton.style.cssText = "flex: 3 0 52%; text-align:left; padding-left: 25px; 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button)=>{
     button.addEventListener("click", () =>{
-        if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation===undefined){
+        if (button.id ==="C"){
+            updateDisplay("0");
+            firstNumber = "";
+            operation= undefined;
+            secondNumber = "";
+        }
+        else if (firstNumber.length <= 9 && ((typeof parseInt(button.id) === "number" && !isNaN(parseInt(button.id))) || button.id===".") && operation===undefined){
             firstNumber += (button.id);
             updateDisplay(firstNumber);
             console.log(`type of ${button.id}: ${typeof parseInt(button.id)}`);
