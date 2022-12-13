@@ -82,19 +82,27 @@ buttons.forEach((button)=>{
         console.log(`operationNumbers: ${operationNumbers}`);
         console.log(`operations: ${operation}`);
         console.log("____________")
-        /*
-        else if (button.id==="="){
-            firstNumber = parseFloat(firstNumber);
-            secondNumber = parseFloat(secondNumber);
-            let func = 
+        
+        if (button.id==="=" && operationNumbers.length !== 0){
+            
+            operationNumbers.push(secondNumber);
+            console.log(`operationNumbers equals: ${operationNumbers}`)
 
-            let answer = operate(operation, firstNumber, secondNumber);
+            let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
+
+            for (let i = 2; i < operationNumbers.length; i++){
+                console.log(`answer is ${answer}`);
+                answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
+            } 
+
+            console.log(`Answer: ${answer}`);
+
             updateDisplay(answer);
 
             firstNumber = "";
             secondNumber = "";
             operation = [];
             additionalNumbers = undefined;
-        }*/
+        }
     });
 })
