@@ -30,7 +30,6 @@ function operate(func, a, b){
     (func ==="-")? subtract(a,b):
     (func ==="x")? multiply(a,b):
     (func==="÷")? divide(a,b): undefined;
-    
     return operate;
 }
 
@@ -67,13 +66,13 @@ function getNumbersOnlyLength(stringNum){
     stringNum = stringNum.toString();
     stringNum = stringNum.split("");
     const total = stringNum.reduce((accumulator, currentElement) => {
-            if (typeof parseInt(currentElement) ==="number" && !isNaN(parseInt(currentElement))) {
-                return accumulator + 1;
-            }
-            else{
-                return accumulator;
-            }
-        }, 0);
+        if (typeof parseInt(currentElement) ==="number" && !isNaN(parseInt(currentElement))) {
+            return accumulator + 1;
+        }
+        else{
+            return accumulator;
+        }
+    }, 0);
     return total;   
 }
 
@@ -82,23 +81,6 @@ function resetCalculator(){
     secondNumber = "";
     operationNumbers = [];
 }
-
-function processEqualInput(){
-    operationNumbers.push(secondNumber);
-    let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
-
-    for (let i = 2; i < operationNumbers.length; i++){
-        answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
-    } 
-
-    answer = roundDecimal(answer);
-    updateDisplay(answer);
-
-    firstNumber = answer;
-    resetCalculator();
-}
-
-
 
 
 const buttons = document.querySelectorAll("button");
@@ -178,6 +160,22 @@ buttons.forEach((button)=>{
                 resetCalculator();
             }
         }
+
+        function processEqualInput(){
+            operationNumbers.push(secondNumber);
+            let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
+        
+            for (let i = 2; i < operationNumbers.length; i++){
+                answer = operate(operation[i-1], answer, parseFloat(operationNumbers[i]));
+            } 
+        
+            answer = roundDecimal(answer);
+            updateDisplay(answer);
+        
+            firstNumber = answer;
+            resetCalculator();
+        }
+
 
         processOperandInput();
         processOperatorInput();
