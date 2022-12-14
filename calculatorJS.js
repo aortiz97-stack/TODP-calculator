@@ -111,13 +111,13 @@ buttons.forEach((button)=> {
             }
 
             if (typeof firstNumber === "number" && typeof parseInt(button.id) ==="number" && !isNaN(parseInt(button.id))){
-                firstNumber = button.id
+                firstNumber = button.id;
                 updateDisplay(firstNumber);
             }
         }
     
         function processOperatorInput(){
-            if (firstNumber != "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
+            if (firstNumber !== "" && (button.id === "+" || button.id === "-" || button.id === "x" || button.id === "÷")){
                 operationNumbers.push(parseFloat(firstNumber));
                 firstNumber = "";
             }
@@ -168,7 +168,7 @@ buttons.forEach((button)=> {
         }
 
         function processEqualInput(){
-            operationNumbers.push(secondNumber);
+            operationNumbers.push(secondNumber);          
             let answer = operate(operation[0], parseFloat(operationNumbers[0]), parseFloat(operationNumbers[1]));
         
             for (let i = 2; i < operationNumbers.length; i++){
