@@ -1,4 +1,4 @@
-let firstNumber = "";
+let firstNumber = "0";
 let operation = [];
 let secondNumber = "";
 let operationNumbers = [];
@@ -162,7 +162,7 @@ buttons.forEach((button)=> {
             }
             else if (button.id ==="C"){
                 updateDisplay("0");
-                firstNumber = "";
+                firstNumber = "0";
                 resetCalculator();
             }
         }
