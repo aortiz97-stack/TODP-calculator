@@ -43,7 +43,7 @@ function getNumbersOnlyLength(stringNum) {
   let finalStringNum = stringNum.toString();
   finalStringNum = finalStringNum.split('');
   const total = finalStringNum.reduce((accumulator, currentElement) => {
-    if (typeof parseInt(currentElement) === 'number' && !isNaN(parseInt(currentElement))) {
+    if (typeof Number(currentElement) === 'number' && !Number.isNaN(Number(currentElement))) {
       return accumulator + 1;
     }
 
@@ -85,7 +85,7 @@ buttons.forEach((button) => {
   button.addEventListener('click', () => {
     function processOperandInput() {
       if (getNumbersOnlyLength(firstNumber) <= 9 && typeof firstNumber !== 'number'
-            && ((typeof parseInt(button.id) === 'number' && !isNaN(parseInt(button.id))) || button.id === '.') && operation.length === 0) {
+            && ((typeof Number(button.id) === 'number' && !Number.isNaN(Number(button.id))) || button.id === '.') && operation.length === 0) {
         if (firstNumber === '0') firstNumber = '';
         firstNumber += (button.id);
         secondNumber = '';
@@ -94,7 +94,7 @@ buttons.forEach((button) => {
             && (button.id === '+' || button.id === '-' || button.id === 'x' || button.id === '÷')) {
         operation.push(button.id);
       } else if (getNumbersOnlyLength(secondNumber) <= 9
-            && ((typeof parseInt(button.id) === 'number' && !isNaN(parseInt(button.id))) || button.id === '.') && operation.length !== 0) {
+            && ((typeof Number(button.id) === 'number' && !Number.isNaN(Number(button.id))) || button.id === '.') && operation.length !== 0) {
         firstNumber = '';
         secondNumber += (button.id);
         updateDisplay(secondNumber);
@@ -105,7 +105,7 @@ buttons.forEach((button) => {
         }
       }
 
-      if (typeof firstNumber === 'number' && typeof parseInt(button.id) === 'number' && !isNaN(parseInt(button.id))) {
+      if (typeof firstNumber === 'number' && typeof Number(button.id) === 'number' && !Number.isNaN(Number(button.id))) {
         firstNumber = button.id;
         updateDisplay(firstNumber);
       }
