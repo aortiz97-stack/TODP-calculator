@@ -8,42 +8,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstNumber: '0',
-      operation: [],
-      operationNumbers: [],
-      secondNumber: '',
+      firstNumber : '0',
+      operation : [],
+      operationNumbers : [],
+      secondNumber : '',
+      display : '0',
     }
   }
-
-  add(a, b) {
-    return (a * 10 + b * 10) / 10;
-  }
   
-  subtract(a, b) {
-    return (a * 10 - b * 10) / 10;
-  }
-  
-  multiply(a, b) {
-    return a * b;
-  }
-  
-  divide(a, b) {
-    return a / b;
-  }
-  
-  operate(func, a, b) {
-    const operateConst = (func === '+') ? this.add(a, b)
-      : (func === '-') ? this.subtract(a, b)
-        : (func === 'x') ? this.multiply(a, b)
-          : (func === '÷') ? this.divide(a, b) : undefined;
-    return operateConst;
-  }
 
   render() {
     return (
       <div id='calculator-body'>
         <Display state={this.state}/>
-        <NumberKeypad/>
+        <NumberKeypad state={this.state}/>
       </div>
     );
   }
