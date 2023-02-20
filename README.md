@@ -1,2 +1,2 @@
 # TODP-calculator
-Calculator assignment from The Odin Project
+Calculator assignment from The Odin Project refactored with React
