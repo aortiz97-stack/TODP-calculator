@@ -114,11 +114,11 @@ function App() {
   };
 
   const zeroStyle = {
-    flex: '3 0 52%',
     textAlign:'left',
     paddingLeft: '25px',
     borderRadius: '35px',
     border: '#232323',
+    gridColumn: '1 / 3',
   }
 
   return (
@@ -127,35 +127,35 @@ function App() {
         {display}
       </div>
       <div id="number-keypad" className="internal-container">
-        <div className="row">
+       
           <button id="C" className="light-gray" onClick={handleClearClick}>C</button>
           <button id="+/-" className="light-gray" onClick={handlePlusMinusClick}>+/-</button>
           <button id="%" className="light-gray" onClick={handlePercentageClick}>%</button>
           <button id="÷" className="golden-yellow" onClick={() => handleOperatorClick("÷")}>÷</button>
-        </div>
-      <div className="row">
+       
+      
           <button id="7" className="charcoal-gray" onClick={() => handleNumberClick("7")}>7</button>
           <button id="8" className="charcoal-gray" onClick={() => handleNumberClick("8")}>8</button>
           <button id="9" className="charcoal-gray" onClick={() => handleNumberClick("9")}>9</button>
           <button id="x" className="golden-yellow" onClick={()=> handleOperatorClick("x")}>x</button>
-      </div>
-      <div className="row">
+     
+     
           <button id="4" className="charcoal-gray" onClick={() => handleNumberClick("4")}>4</button>
           <button id="5" className="charcoal-gray" onClick={() => handleNumberClick("5")}>5</button>
           <button id="6" className="charcoal-gray" onClick={() => handleNumberClick("6")}>6</button>
           <button id="-" className="golden-yellow" onClick={() => handleOperatorClick("-")}>-</button>
-      </div>
-      <div className="row">
+  
+      
           <button id="1" className="charcoal-gray" onClick={() => handleNumberClick("1")}>1</button>
           <button id="2" className="charcoal-gray" onClick={() => handleNumberClick("2")}>2</button>
           <button id="3" className="charcoal-gray" onClick={() => handleNumberClick("3")}>3</button>
           <button id="+" className="golden-yellow" onClick={() => handleOperatorClick("+")}>+</button>
-      </div>
-      <div className="row">
+     
+     
           <button id="0" className="charcoal-gray" onClick={() => handleNumberClick("0")} style={zeroStyle}>0</button>
           <button id="." className="charcoal-gray" onClick={() => handleNumberClick(".")}>.</button>
           <button id="=" className="golden-yellow" onClick={() => handleEqualsClick("=")}>=</button>
-      </div>
+ 
     </div>
     </div>);
     }
