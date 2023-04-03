@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TODP-calculator/static/css/main.90cb1b61.css",
+    "main.js": "/TODP-calculator/static/js/main.4fef74ff.js",
+    "index.html": "/TODP-calculator/index.html",
+    "main.90cb1b61.css.map": "/TODP-calculator/static/css/main.90cb1b61.css.map",
+    "main.4fef74ff.js.map": "/TODP-calculator/static/js/main.4fef74ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90cb1b61.css",
+    "static/js/main.4fef74ff.js"
+  ]
+}
